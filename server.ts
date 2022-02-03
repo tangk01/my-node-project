@@ -7,7 +7,8 @@ import TuitController from "./controllers/TuitController";
 import TuitDao from "./daos/TuitDao";
 
 const app = express();
-mongoose.connect('mongodb://localhost:27017/cs5500-test-123');
+mongoose.connect('mongodb+srv://tangk01:<password>@cluster0.nfgsg.mongodb.net/' +
+    'myFirstDatabase?retryWrites=true&w=majority');
 app.use(bodyParser.json())
 
 app.get('/hello', (req, res) =>
