@@ -1,27 +1,24 @@
-/**
- * @file Server file
- */
-import express, {Request, Response} from 'express';
-import mongoose from "mongoose";
-import bodyParser from "body-parser";
-//import CourseController from "./controllers/CourseController";
+import express from 'express';
 import UserController from "./controllers/UserController";
+import mongoose from 'mongoose';
+import bodyParser from "body-parser";
+import UserDao from "./daos/UserDao";
 import TuitController from "./controllers/TuitController";
-//import LikeController from "./controllers/LikeController";
+import TuitDao from "./daos/TuitDao";
+
 const app = express();
 mongoose.connect('mongodb://localhost:27017/cs5500-test-123');
 app.use(bodyParser.json())
 
-app.get('/', (req: Request, res: Response) =>
-    res.send('Welcome!'));
+app.get('/hello', (req, res) =>
+    res.send('Hello World!'));
 
-app.get('/add/:a/:b', (req: Request, res: Response) =>
-    res.send(req.params.a + req.params.b));
+app.get('/add/:a/:b', (req, res) => {
+  res.send(req.params.a + req.params.b);
+})
 
-//const courseController = new CourseController(app);
-const userController = UserController.getInstance(app);
-const tuitController = TuitController.getInstance(app);
-//const likesController = LikeController.getInstance(app);
+const userController = new UserController(app, new UserDao());
+const tuitController = new TuitController(app, new TuitDao());
 
 const PORT = 4000;
 app.listen(process.env.PORT || PORT);
