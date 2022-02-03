@@ -6,7 +6,7 @@ import UserDaoI from "../interfaces/IUserDao";
  * Implements Data Access Object managing data storage
  * of Users
  * @implements {UserDaoI} UserDaoI
- * @property {UserDao} userDao Private single instance of IUserDao
+ * @property {UserDao} userDao Private single instance of UserDao
  */
 export default class UserDao implements UserDaoI {
   private static userDao: UserDao | null = null;
