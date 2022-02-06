@@ -7,8 +7,10 @@ import TuitController from "./controllers/TuitController";
 import TuitDao from "./daos/TuitDao";
 
 const app = express();
-mongoose.connect('mongodb+srv://tangk01:hihi12345@cluster0.nfgsg.mongodb.net/' +
-    'myFirstDatabase?retryWrites=true&w=majority');
+mongoose.connect('mongodb+srv://admin:' + process.env.DB_PASSWORD +
+    '@cluster0.nfgsg.mongodb.net/myFirstDatabase?retryWrites=true&w=majority');
+//mongoose.connect('mongodb+srv://tangk01:hihi12345@cluster0.nfgsg.mongodb.net/' +
+//    'myFirstDatabase?retryWrites=true&w=majority');
 
 app.use(bodyParser.json())
 
