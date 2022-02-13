@@ -1,8 +1,11 @@
+/**
+ * @file Controller RESTful Web service API for users resource
+ */
 import {Request, Response, Express} from "express";
 import UserDao from "../daos/UserDao";
-import UserControllerI from "../interfaces/IUserController";
+import IUserController from "../interfaces/IUserController";
 
-export default class UserController implements UserControllerI {
+export default class UserController implements IUserController {
   app: Express;
   userDao: UserDao;
   constructor(app: Express, userDao: UserDao) {
