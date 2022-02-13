@@ -1,8 +1,10 @@
 import AccountType from "./AccountType";
 import MaritalStatus from "./MaritalStatus";
 import Location from "./Location";
+import mongoose from "mongoose";
 
 export default class User {
+  _id?: mongoose.Schema.Types.ObjectId;
   private username: string = '';
   private password: string = '';
   private firstName: string | null = null;
