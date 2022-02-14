@@ -1,6 +1,7 @@
 import ILikeDao from "../interfaces/Likes/ILikeDao";
-import LikeModel from "../mongoose/likes/LikeModel";
+import LikeModel from "../mongoose/Likes/LikeModel";
 import Like from "../models/Like";
+
 export default class LikeDao implements ILikeDao {
   private static likeDao: LikeDao | null = null;
   public static getInstance = (): LikeDao => {
