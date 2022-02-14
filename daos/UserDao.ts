@@ -3,8 +3,8 @@
  * to integrate with MongoDB
  */
 import User from "../models/User";
-import UserModel from "../mongoose/UserModel";
-import UserDaoI from "../interfaces/IUserDao";
+import UserModel from "../mongoose/Users/UserModel";
+import UserDaoI from "../interfaces/Users/IUserDao";
 
 /**
  * @class UserDao Implements Data Access Object managing data storage

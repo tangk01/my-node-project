@@ -3,7 +3,7 @@
  */
 import {Request, Response, Express} from "express";
 import TuitDao from "../daos/TuitDao";
-import TuitControllerI from "../interfaces/ITuitController";
+import TuitControllerI from "../interfaces/Tuits/ITuitController";
 
 export default class TuitController implements TuitControllerI {
   app: Express

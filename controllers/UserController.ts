@@ -3,7 +3,7 @@
  */
 import {Request, Response, Express} from "express";
 import UserDao from "../daos/UserDao";
-import IUserController from "../interfaces/IUserController";
+import IUserController from "../interfaces/Users/IUserController";
 
 export default class UserController implements IUserController {
   app: Express;

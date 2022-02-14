@@ -3,8 +3,8 @@
  * to integrate with MongoDB
  */
 import Tuit from "../models/Tuit";
-import TuitModel from "../mongoose/TuitModel";
-import ITuitDao from "../interfaces/ITuitDao";
+import TuitModel from "../mongoose/Tuits/TuitModel";
+import ITuitDao from "../interfaces/Tuits/ITuitDao";
 
 export default class TuitDao implements ITuitDao {
   async findAllTuits(): Promise<Tuit[]> {
