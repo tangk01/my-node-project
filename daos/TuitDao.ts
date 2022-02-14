@@ -1,8 +1,15 @@
+/**
+ * @file Implements DAO managing data storage of tuits. Uses mongoose TuitModel
+ * to integrate with MongoDB
+ */
 import Tuit from "../models/Tuit";
 import TuitModel from "../mongoose/TuitModel";
-import TuitDaoI from "../interfaces/ITuitDao";
+import ITuitDao from "../interfaces/ITuitDao";
 
-export default class TuitDao implements TuitDaoI {
+export default class TuitDao implements ITuitDao {
+
+
+
   async findAllTuits(): Promise<Tuit[]> {
     return await TuitModel.find();
   }
@@ -15,8 +22,8 @@ export default class TuitDao implements TuitDaoI {
     return await TuitModel.findById(tid);
   }
 
-  async createTuit(tuit: Tuit): Promise<Tuit> {
-    return await TuitModel.create(tuit);
+  async createTuit(tuit: Tuit, uid: string): Promise<Tuit> {
+    return await TuitModel.create({tuit, postedBy: uid});
   }
 
   async updateTuit(tid: string, tuit: Tuit): Promise<any> {
