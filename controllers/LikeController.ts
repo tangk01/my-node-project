@@ -34,10 +34,10 @@ export default class LikeController implements ILikeController {
   public static getInstance = (app: Express): LikeController => {
     if(LikeController.likeController === null) {
       LikeController.likeController = new LikeController();
-      app.get("/api/users/:uid/likes", LikeController.likeController.findAllTuitsLikedByUser);
-      app.get("/api/tuits/:tid/likes", LikeController.likeController.findAllUsersThatLikedTuit);
-      app.post("/api/users/:uid/likes/:tid", LikeController.likeController.userLikesTuit);
-      app.delete("/api/users/:uid/unlikes/:tid", LikeController.likeController.userUnlikesTuit);
+      app.get("/users/:uid/likes", LikeController.likeController.findAllTuitsLikedByUser);
+      app.get("/tuits/:tid/likes", LikeController.likeController.findAllUsersThatLikedTuit);
+      app.post("/users/:uid/likes/:tid", LikeController.likeController.userLikesTuit);
+      app.delete("/users/:uid/unlikes/:tid", LikeController.likeController.userUnlikesTuit);
     }
     return LikeController.likeController;
   }
