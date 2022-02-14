@@ -30,7 +30,7 @@ export default class TuitController implements TuitControllerI {
       this.tuitDao.findTuitsByUser(req.params.uid)
       .then(tuit => res.json(tuit))
   createTuit = (req: Request, res: Response) =>
-      this.tuitDao.createTuit(req.body, req.params.uid)
+      this.tuitDao.createTuit(req.params.uid, req.body)
       .then(tuit => res.json(tuit))
   deleteTuit = (req: Request, res: Response) =>
       this.tuitDao.deleteTuit(req.params.tid)
