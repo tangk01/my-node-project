@@ -20,7 +20,7 @@ export default class TuitDao implements ITuitDao {
   }
 
   async createTuit(tuit: Tuit, uid: string): Promise<Tuit> {
-    return await TuitModel.create({tuit, postedBy: uid});
+    return await TuitModel.create({tuit: tuit, postedBy: uid});
   }
 
   async updateTuit(tid: string, tuit: Tuit): Promise<any> {
