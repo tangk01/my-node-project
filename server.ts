@@ -5,6 +5,7 @@ import bodyParser from "body-parser";
 import UserDao from "./daos/UserDao";
 import TuitController from "./controllers/TuitController";
 import TuitDao from "./daos/TuitDao";
+import LikeController from "./controllers/LikeController";
 
 
 // Connect to database
@@ -25,6 +26,7 @@ app.get('/add/:a/:b', (req, res) => {
 
 const userController = new UserController(app, new UserDao());
 const tuitController = new TuitController(app, new TuitDao());
+const likesController = LikeController.getInstance(app);
 
 const PORT = 4000;
 app.listen(process.env.PORT || PORT);
