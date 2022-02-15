@@ -7,6 +7,7 @@ import TuitController from "./controllers/TuitController";
 import TuitDao from "./daos/TuitDao";
 import LikeController from "./controllers/LikeController";
 import FollowController from "./controllers/FollowController";
+import BookmarkController from "./controllers/BookmarkController";
 
 
 // Connect to database
@@ -29,6 +30,7 @@ const userController = new UserController(app, new UserDao());
 const tuitController = new TuitController(app, new TuitDao());
 const likesController = LikeController.getInstance(app);
 const followsController = FollowController.getInstance(app);
+const bookmarkController = BookmarkController.getInstance(app);
 
 const PORT = 4000;
 app.listen(process.env.PORT || PORT);

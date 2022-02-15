@@ -1,5 +1,4 @@
 import Follow from "../../models/Follow";
-import {Request, Response} from "express";
 
 /**
  * @file Declares API for Follows related data access object methods
