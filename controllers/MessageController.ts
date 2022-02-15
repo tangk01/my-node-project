@@ -20,7 +20,7 @@ export default class MessageController implements IMessageController {
       app.get("/users/:uid/message", MessageController.messageController.viewSentMessage);
       app.get("/message/:uid", MessageController.messageController.viewReceivedMessage);
       app.post("/users/:uid1/message/:uid2", MessageController.messageController.sendMessage);
-      app.delete("/message/mid", MessageController.messageController.deleteMessage);
+      app.delete("/message/:mid", MessageController.messageController.deleteMessage);
     }
     return MessageController.messageController;
   }
