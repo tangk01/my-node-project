@@ -1,3 +1,6 @@
+/**
+ * @file Declares Tuit data type
+ */
 import User from "./User";
 
 export default class Tuit {
