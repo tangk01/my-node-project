@@ -26,6 +26,7 @@ import IUserController from "../interfaces/Users/IUserController";
 export default class UserController implements IUserController {
   app: Express;
   userDao: UserDao;
+  
   constructor(app: Express, userDao: UserDao) {
     this.app = app;
     this.userDao = userDao;
