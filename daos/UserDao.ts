@@ -26,7 +26,7 @@ export default class UserDao implements UserDaoI {
    * @param {String} uid Key for user wanted
    * @returns Promise to be notified when user is retrieved from database
    */
-  async findUserById(uid: string): Promise<User> {
+  async findUserById(uid: string): Promise<any> {
     return await UserModel.findById(uid);
   }
 
@@ -61,5 +61,15 @@ export default class UserDao implements UserDaoI {
 
 
 
+  /**
+   * Removes all users from the database. Useful for testing
+   * @returns Promise To be notified when all users are removed from the
+   * database
+   */
+  deleteAllUsers = async (): Promise<any> =>
+      UserModel.deleteMany({});
 
+
+  deleteUsersByUsername = async (username: string): Promise<any> =>
+      UserModel.deleteMany({username});
 }
