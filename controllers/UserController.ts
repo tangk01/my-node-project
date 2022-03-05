@@ -26,7 +26,7 @@ import IUserController from "../interfaces/Users/IUserController";
 export default class UserController implements IUserController {
   app: Express;
   userDao: UserDao;
-  
+
   constructor(app: Express, userDao: UserDao) {
     this.app = app;
     this.userDao = userDao;
@@ -35,6 +35,17 @@ export default class UserController implements IUserController {
     this.app.post('/users', this.createUser);
     this.app.delete('/users/:userid', this.deleteUser);
     this.app.put('/users/:userid', this.updateUser);
+
+
+    // for testing. Not RESTful
+    app.get("/api/users/create",
+        this.createUser);
+    app.get("/api/users/id/:uid/delete",
+        this.deleteUser);
+    app.get("/api/users/username/:username/delete",
+        this.deleteUsersByUsername);
+    app.get("/api/users/delete",
+        this.deleteAllUsers);
   }
 
   /**
@@ -92,4 +103,23 @@ export default class UserController implements IUserController {
   updateUser = (req: Request, res: Response) =>
       this.userDao.updateUser(req.params.userid, req.body)
       .then(status => res.json(status));
+
+
+
+
+
+  /**
+   * Removes all user instances from the database. Useful for testing
+   * @param {Request} req Represents request from client
+   * @param {Response} res Represents response to client, including status
+   * on whether deleting all users was successful or not
+   */
+  deleteAllUsers = (req: Request, res: Response) =>
+      this.userDao.deleteAllUsers()
+      .then((status) => res.send(status));
+
+
+  deleteUsersByUsername = (req: Request, res: Response) =>
+      this.userDao.deleteUsersByUsername(req.params.username)
+      .then(status => res.send(status));
 }
