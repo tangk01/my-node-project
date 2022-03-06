@@ -38,13 +38,13 @@ export default class UserController implements IUserController {
 
 
     // for testing. Not RESTful
-    app.get("/api/users/create",
+    app.get("/users/create",
         this.createUser);
-    app.get("/api/users/id/:uid/delete",
+    app.get("/users/id/:uid/delete",
         this.deleteUser);
-    app.get("/api/users/username/:username/delete",
+    app.get("/users/username/:username/delete",
         this.deleteUsersByUsername);
-    app.get("/api/users/delete",
+    app.get("/users/delete",
         this.deleteAllUsers);
   }
 
