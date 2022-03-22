@@ -32,7 +32,6 @@ const app = express();
 mongoose.connect('mongodb+srv://tangk01:' + process.env.DB_PASSWORD +
     '@cluster0.nfgsg.mongodb.net/myFirstDatabase?retryWrites=true&w=majority');
 
-
 // Creates RESTful API
 app.use(express.json());
 app.use(cors());
