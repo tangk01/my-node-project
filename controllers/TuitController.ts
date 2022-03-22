@@ -38,6 +38,10 @@ export default class TuitController implements ITuitController {
     this.app.post('/users/:uid/tuits', this.createTuit);
     this.app.delete('/tuits/:tid', this.deleteTuit);
     this.app.put('/tuits/:tid', this.updateTuit);
+
+    // for testing. Not RESTful
+    app.get("/tuits/:tuit/delete",
+        this.deleteTuitsByTuit);
   }
 
   /**
@@ -107,4 +111,11 @@ export default class TuitController implements ITuitController {
   updateTuit = (req: Request, res: Response) =>
       this.tuitDao.updateTuit(req.params.tid, req.body)
       .then(tuit => res.json(tuit))
+
+
+
+
+  deleteTuitsByTuit = (req: Request, res: Response) =>
+      this.tuitDao.deleteTuitsByTuit(req.params.tuit)
+          .then(status => res.send(status))
 }

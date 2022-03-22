@@ -24,6 +24,7 @@ import LikeController from "./controllers/LikeController";
 import FollowController from "./controllers/FollowController";
 import BookmarkController from "./controllers/BookmarkController";
 import MessageController from "./controllers/MessageController";
+var cors = require('cors')
 
 
 // Connect to database
@@ -33,7 +34,8 @@ mongoose.connect('mongodb+srv://tangk01:' + process.env.DB_PASSWORD +
 
 
 // Creates RESTful API
-app.use(bodyParser.json())
+app.use(express.json());
+app.use(cors());
 
 app.get('/hello', (req, res) =>
     res.send('Hello World!'));
