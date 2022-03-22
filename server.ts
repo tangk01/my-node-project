@@ -26,11 +26,24 @@ import BookmarkController from "./controllers/BookmarkController";
 import MessageController from "./controllers/MessageController";
 var cors = require('cors')
 
-
 // Connect to database
+const session = require("express-session");
 const app = express();
 mongoose.connect('mongodb+srv://tangk01:' + process.env.DB_PASSWORD +
     '@cluster0.nfgsg.mongodb.net/myFirstDatabase?retryWrites=true&w=majority');
+
+let sess = {
+  secret: process.env.SECRET,
+  cookie: {
+    secure: false
+  }
+}
+
+if (process.env.ENV === 'PRODUCTION') {
+  app.set('trust proxy', 1) // trust first proxy
+  sess.cookie.secure = true // serve secure cookies
+}
+
 
 // Creates RESTful API
 app.use(express.json());
