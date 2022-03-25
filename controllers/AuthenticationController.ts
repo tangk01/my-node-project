@@ -7,7 +7,26 @@ const AuthenticationController = (app: Express) => {
 
   const userDao = new UserDao();
 
-  const signup = async (req: Request, res: Response) => {
+  const login = async (req: Request, res: Response) => {
+    const user = req.body;
+    const username = user.username;
+    const password = user.password;
+    console.log(password)
+    const existingUser = await userDao
+    .findUserByUsername(username);
+    const match = await bcrypt.compare(password, existingUser.password);
+
+    if (match) {
+      existingUser.password = '*****';
+      // @ts-ignore
+      req.session['profile'] = existingUser;
+      res.json(existingUser);
+    } else {
+      res.sendStatus(403);
+    }
+  }
+
+  const register = async (req: Request, res: Response) => {
     const newUser = req.body;
     const password = newUser.password;
     const hash = await bcrypt.hash(password, saltRounds);
@@ -18,8 +37,7 @@ const AuthenticationController = (app: Express) => {
     if (existingUser) {
       res.sendStatus(403);
       return;
-    }
-    else {
+    } else {
       const insertedUser = await userDao
       .createUser(newUser);
       insertedUser.password = '';
@@ -33,7 +51,6 @@ const AuthenticationController = (app: Express) => {
     // @ts-ignore
     const profile = req.session['profile'];
     if (profile) {
-      profile.password = "";
       res.json(profile);
     } else {
       res.sendStatus(403);
@@ -46,35 +63,10 @@ const AuthenticationController = (app: Express) => {
     res.sendStatus(200);
   }
 
-  const login = async (req: Request, res: Response) => {
-    const user = req.body;
-    const username = user.username;
-    const password = user.password;
-    const existingUser = await userDao
-    .findUserByUsername(username);
-
-    if (!existingUser) {
-      res.sendStatus(403);
-      return;
-    }
-
-    const match = await bcrypt
-    .compare(password, existingUser.password);
-
-    if (match) {
-      existingUser.password = '*****';
-      // @ts-ignore
-      req.session['profile'] = existingUser;
-      res.json(existingUser);
-    } else {
-      res.sendStatus(403);
-    }
-  };
-
   app.post("/api/auth/login", login);
+  app.post("/api/auth/register", register);
   app.post("/api/auth/profile", profile);
   app.post("/api/auth/logout", logout);
-  app.post("/api/auth/signup", signup);
 }
 
 export default AuthenticationController;

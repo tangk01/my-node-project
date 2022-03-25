@@ -16,7 +16,6 @@
 import express from 'express';
 import UserController from "./controllers/UserController";
 import mongoose from 'mongoose';
-import bodyParser from "body-parser";
 import UserDao from "./daos/UserDao";
 import TuitController from "./controllers/TuitController";
 import TuitDao from "./daos/TuitDao";
@@ -24,6 +23,7 @@ import LikeController from "./controllers/LikeController";
 import FollowController from "./controllers/FollowController";
 import BookmarkController from "./controllers/BookmarkController";
 import MessageController from "./controllers/MessageController";
+import AuthenticationController from "./controllers/AuthenticationController";
 const cors = require('cors')
 const session = require("express-session");
 
@@ -73,6 +73,7 @@ const likesController = LikeController.getInstance(app);
 const followsController = FollowController.getInstance(app);
 const bookmarkController = BookmarkController.getInstance(app);
 const messageController = MessageController.getInstance(app);
+AuthenticationController(app);
 
 /**
  * Start a server listening at port 4000 locally
