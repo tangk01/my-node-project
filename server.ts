@@ -35,7 +35,7 @@ const app = express();
 
 app.use(cors({
   credentials: true,
-  origin: ["http://localhost:3000", 'https://623e3d9936b319000af8c7c1--stirring-custard-0088d9.netlify.app']
+  origin: ["http://localhost:3000", 'https://<react-app-name>.netlify.app']
   //https://<react-app-name>.netlify.app
 }));
 
@@ -45,7 +45,8 @@ let sess = {
   saveUninitialized: true,
   resave: true,
   cookie: {
-    secure: false
+    secure: true,
+    sameSite: "none"
   }
 }
 
