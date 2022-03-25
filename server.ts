@@ -24,16 +24,25 @@ import LikeController from "./controllers/LikeController";
 import FollowController from "./controllers/FollowController";
 import BookmarkController from "./controllers/BookmarkController";
 import MessageController from "./controllers/MessageController";
-var cors = require('cors')
+const cors = require('cors')
+const session = require("express-session");
 
 // Connect to database
-const session = require("express-session");
-const app = express();
 mongoose.connect('mongodb+srv://tangk01:' + process.env.DB_PASSWORD +
     '@cluster0.nfgsg.mongodb.net/myFirstDatabase?retryWrites=true&w=majority');
 
+const app = express();
+
+app.use(cors({
+  credentials: true,
+  origin: 'http://localhost:3000'
+}));
+
+const SECRET = 'process.env.SECRET';
 let sess = {
-  secret: process.env.SECRET,
+  secret: SECRET,
+  saveUninitialized: true,
+  resave: true,
   cookie: {
     secure: false
   }
@@ -46,8 +55,8 @@ if (process.env.ENV === 'PRODUCTION') {
 
 
 // Creates RESTful API
+app.use(session(sess))
 app.use(express.json());
-app.use(cors());
 
 app.get('/hello', (req, res) =>
     res.send('Hello World!'));
