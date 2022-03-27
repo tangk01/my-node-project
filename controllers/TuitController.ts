@@ -4,6 +4,7 @@
 import {Request, Response, Express} from "express";
 import TuitDao from "../daos/TuitDao";
 import ITuitController from "../interfaces/Tuits/ITuitController";
+import Tuit from "../models/Tuit";
 
 /**
  * @class TuitController Implements RESTful Web service API for tuit resource.
@@ -72,9 +73,17 @@ export default class TuitController implements ITuitController {
    * @param {Response} res Represents response to client, including the
    * body formatted as JSON arrays containing the tuit objects
    */
-  findTuitsByUser = (req: Request, res: Response) =>
-      this.tuitDao.findTuitsByUser(req.params.uid)
-      .then(tuit => res.json(tuit))
+  findTuitsByUser = (req: Request, res: Response) => {
+    // @ts-ignore
+    let userId = req.params.uid === "my" && req.session['profile'] ?
+        // @ts-ignore
+        req.session['profile']._id : req.params.uid;
+    this.tuitDao.findTuitsByUser(userId)
+    .then((tuits: Tuit[]) => res.json(tuits));
+  }
+
+  /* this.tuitDao.findTuitsByUser(req.params.uid)
+      .then(tuit => res.json(tuit)) */
 
   /**
    * Creates a new tuit
@@ -85,9 +94,20 @@ export default class TuitController implements ITuitController {
    * body formatted as JSON containing the new tuit that was inserted
    * into the database
    */
-  createTuit = (req: Request, res: Response) =>
-      this.tuitDao.createTuit(req.params.uid, req.body)
-      .then(tuit => res.json(tuit))
+  createTuit = (req: Request, res: Response) => {
+    // @ts-ignore
+    let userId = req.params.uid === "my" && req.session['profile'] ?
+        // @ts-ignore
+        req.session['profile']._id : req.params.uid;
+
+    console.log(userId);
+
+    this.tuitDao.createTuit(userId, req.body)
+    .then((tuit: Tuit) => res.json(tuit));
+  }
+
+/*  this.tuitDao.createTuit(req.params.uid, req.body)
+      .then(tuit => res.json(tuit)) */
 
   /**
    * Deletes an existing tuit
