@@ -43,8 +43,7 @@ let sess = {
   secret: SECRET,
   saveUninitialized: true,
   cookie: {
-    secure: false,
-    sameSite: "none"
+    secure: false
   }
 }
 
