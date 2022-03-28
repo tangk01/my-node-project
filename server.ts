@@ -32,17 +32,16 @@ mongoose.connect('mongodb+srv://tangk01:' + process.env.DB_PASSWORD +
     '@cluster0.nfgsg.mongodb.net/myFirstDatabase?retryWrites=true&w=majority');
 
 const app = express();
-
 app.use(cors({
   credentials: true,
-  origin: ["http://localhost:3000", 'https://<react-app-name>.netlify.app']
+  origin: ["http://localhost:3000", 'https://<react-app-name>.netlify.app',
+  "https://stirring-custard-0088d9.netlify.app"]
 }));
 
 const SECRET = 'process.env.SECRET';
 let sess = {
   secret: SECRET,
   saveUninitialized: true,
-  resave: true,
   cookie: {
     secure: false,
     sameSite: "none"
