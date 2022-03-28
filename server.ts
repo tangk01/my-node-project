@@ -44,7 +44,7 @@ let sess = {
   saveUninitialized: true,
   resave: true,
   cookie: {
-    secure: true,
+    secure: false,
     sameSite: "none"
   }
 }
