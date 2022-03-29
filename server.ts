@@ -35,21 +35,21 @@ const app = express();
 app.use(cors({
   credentials: true,
   origin: ["http://localhost:3000", 'https://<react-app-name>.netlify.app',
-  "https://stirring-custard-0088d9.netlify.app"]
+  "https://stirring-custard-0088d9.netlify.app", process.env.CORS_ORIGIN]
 }));
 
-const SECRET = 'process.env.SECRET';
 let sess = {
-  secret: SECRET,
+  secret: process.env.EXPRESS_SESSION_SECRET,
   saveUninitialized: true,
+  resave: true,
   cookie: {
-    secure: false
+    sameSite: process.env.NODE_ENV === "production" ? 'none' : 'lax',
+    secure: process.env.NODE_ENV === "production",
   }
 }
 
-if (process.env.ENV === 'PRODUCTION') {
+if (process.env.NODE_ENV === 'production') {
   app.set('trust proxy', 1) // trust first proxy
-  sess.cookie.secure = true // serve secure cookies
 }
 
 
