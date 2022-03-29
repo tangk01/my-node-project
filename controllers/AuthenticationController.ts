@@ -51,7 +51,6 @@ const AuthenticationController = (app: Express) => {
     // @ts-ignore
     const profile = req.session['profile'];
     if (profile) {
-      // profile.password = "";
       res.json(profile);
     } else {
       res.sendStatus(403);
