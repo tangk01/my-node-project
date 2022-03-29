@@ -3,6 +3,7 @@
  */
 import {Express, Request, Response} from "express";
 import LikeDao from "../daos/LikeDao";
+import TuitDao from "../daos/TuitDao";
 import ILikeController from "../interfaces/Likes/ILikeController";
 
 /**
@@ -25,6 +26,7 @@ import ILikeController from "../interfaces/Likes/ILikeController";
  */
 export default class LikeController implements ILikeController {
   private static likeDao: LikeDao = LikeDao.getInstance();
+  private static tuitDao  = new TuitDao();
   private static likeController: LikeController | null = null;
   /**
    * Creates singleton controller instance
@@ -39,6 +41,7 @@ export default class LikeController implements ILikeController {
       app.get("/tuits/:tid/likes", LikeController.likeController.findAllUsersThatLikedTuit);
       app.post("/users/:uid/likes/:tid", LikeController.likeController.userLikesTuit);
       app.delete("/users/:uid/unlikes/:tid", LikeController.likeController.userUnlikesTuit);
+      app.put("/api/users/:uid/likes/:tid", LikeController.likeController.userTogglesTuitLikes);
     }
     return LikeController.likeController;
   }
@@ -91,4 +94,33 @@ export default class LikeController implements ILikeController {
   userUnlikesTuit = (req: Request, res: Response) =>
       LikeController.likeDao.userUnlikesTuit(req.params.uid, req.params.tid)
       .then(status => res.send(status));
+
+
+
+  userTogglesTuitLikes = async (req: Request, res: Response) => {
+    const likeDao = LikeController.likeDao;
+    const tuitDao = LikeController.tuitDao;
+    const uid = req.params.uid;
+    const tid = req.params.tid;
+    // @ts-ignore
+    const profile = req.session['profile'];
+    const userId = uid === "me" && profile ?
+        profile._id : uid;
+    try {
+      const userAlreadyLikedTuit = await likeDao.findUserLikesTuit(userId, tid);
+      const howManyLikedTuit = await likeDao.countHowManyLikedTuit(tid);
+      let tuit = await tuitDao.findTuitById(tid);
+      if (userAlreadyLikedTuit) {
+        await likeDao.userUnlikesTuit(userId, tid);
+        tuit.stats.likes = howManyLikedTuit - 1;
+      } else {
+        await LikeController.likeDao.userLikesTuit(userId, tid);
+        tuit.stats.likes = howManyLikedTuit + 1;
+      };
+      await tuitDao.updateLikes(tid, tuit.stats);
+      res.sendStatus(200);
+    } catch (e) {
+      res.sendStatus(404);
+    }
+  }
 };
