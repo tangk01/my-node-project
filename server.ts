@@ -40,17 +40,17 @@ app.use(cors({
 
 const SECRET = 'process.env.SECRET';
 let sess = {
-  secret: process.env.SECRET,
-  proxy: true,
+  secret: SECRET,
   cookie: {
-    secure: true,
-    sameSite: 'none'
+    secure: false,
+    sameSite: "strict"
   }
 }
 
 if (process.env.ENV === 'PRODUCTION') {
-  app.set('trust proxy', 1) // trust first proxy
-  sess.cookie.secure = true // serve secure cookies
+  app.enable("trust proxy");
+  sess.cookie.secure = true;
+  sess.cookie.sameSite = "none";
 }
 
 
