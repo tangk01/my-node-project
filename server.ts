@@ -42,8 +42,10 @@ const SECRET = 'process.env.SECRET';
 let sess = {
   secret: SECRET,
   saveUninitialized: true,
+  proxy: true,
   cookie: {
-    secure: false
+    secure: true,
+    sameSite: "none"
   }
 }
 
