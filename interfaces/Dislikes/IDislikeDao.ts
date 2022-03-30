@@ -1,7 +1,7 @@
 import Dislike from "../../models/Dislike";
 
 /**
- * @file Declares API for Likes related data access object methods
+ * @file Declares API for Dislikes related data access object methods
  */
 export default interface IDislikeDao {
   findAllUsersThatDislikedTuit (tid: string): Promise<Dislike[]>;

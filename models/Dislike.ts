@@ -1,6 +1,6 @@
 /**
  * @file Declares Dislike data type representing relationship between
- * users and tuits, as in user likes a tuit
+ * users and tuits, as in user dislikes a tuit
  */
 import Tuit from "./Tuit";
 import User from "./User";
